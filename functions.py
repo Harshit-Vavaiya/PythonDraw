@@ -49,7 +49,7 @@ class SVGDraw:
 
             points.append((_x,_y))
 
-            theta += 0.0
+            theta += 0.1
 
         #draw points
         self.draw(points)
