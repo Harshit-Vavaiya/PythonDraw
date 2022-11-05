@@ -1,4 +1,8 @@
 from math import sin,cos, pi
+import os
+import cairosvg
+from PIL import Image
+
 
 
 class SVGDraw:
@@ -13,6 +17,15 @@ class SVGDraw:
         
         self.height = h
         self.width = w
+
+    def drawPoly(self, points):
+        self.draw(points)
+
+    def drawRect(self,x,y,h,w):
+        h=-h
+        points = [(x,y), (x+w,y), (x+w,h+y), (x,y+h)]
+
+        self.draw(points)
 
     def drawCircle(self,x,y,radius):
         r2 = radius ** 2
@@ -64,9 +77,15 @@ class SVGDraw:
 
         html = "<html><body>%s </body </html>"%(svg)
 
-        with open("render.html","w+") as f:
-            f.write(html)
+        with open("render.svg","w+") as f:
+            f.write(svg)
             f.close()
+
+        cairosvg.svg2png(url="./render.svg", write_to="./output.png")
+        
+        img = Image.open("output.png")
+        img.show()
+        
 
 
 
